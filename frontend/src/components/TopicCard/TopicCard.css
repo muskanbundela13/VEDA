@@ -1,0 +1,57 @@
+.topic-card {
+  min-height: 150px;
+  padding: 24px;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background: var(--color-white);
+  border: 1px solid #e3e6eb;
+  border-radius: var(--radius-md);
+
+  transition: 0.25s ease;
+}
+
+.topic-card:hover {
+  border-color: var(--color-cyan);
+  transform: translateY(-3px);
+}
+
+.topic-number {
+  color: #9297a0;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.topic-content h3 {
+  margin: 20px 0 7px;
+  font-size: 20px;
+}
+
+.topic-content p {
+  margin: 0;
+  max-width: 500px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.topic-arrow {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+
+  width: 32px;
+  height: 32px;
+
+  display: grid;
+  place-items: center;
+
+  background: var(--color-charcoal);
+  color: var(--color-white);
+  border-radius: 50%;
+
+  font-size: 15px;
+}

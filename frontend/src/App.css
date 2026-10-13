@@ -1,0 +1,144 @@
+.navbar {
+  height: 72px;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+.navbar-logo {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 32px;
+}
+
+.navbar-links a {
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.subjects-section {
+  padding: 100px 6%;
+  background: var(--color-white);
+}
+
+.section-heading {
+  max-width: 600px;
+  margin-bottom: 50px;
+}
+
+.section-heading > span {
+  color: var(--color-cyan);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.section-heading h2 {
+  margin: 10px 0;
+  font-size: clamp(38px, 5vw, 60px);
+  letter-spacing: -2px;
+}
+
+.section-heading p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 16px;
+}
+
+.subjects-grid {
+  max-width: var(--container-width);
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 900px) {
+  .subjects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .subjects-section {
+    padding: 70px 5%;
+  }
+
+  .subjects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.features-section {
+  padding: 100px 6%;
+  background: var(--color-light);
+}
+
+.features-grid {
+  max-width: var(--container-width);
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 900px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.footer {
+  padding: 70px 6% 30px;
+  background: var(--color-black);
+  color: var(--color-white);
+}
+
+.footer-brand {
+  max-width: 400px;
+}
+
+.footer-brand h2 {
+  margin: 0 0 14px;
+  color: var(--color-cyan);
+  font-size: 28px;
+}
+
+.footer-brand p {
+  margin: 0;
+  color: #aeb3bc;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.footer-bottom {
+  max-width: var(--container-width);
+  margin: 60px auto 0;
+  padding-top: 20px;
+
+  display: flex;
+  justify-content: space-between;
+
+  border-top: 1px solid #2b2e35;
+
+  color: #777d87;
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  .footer-bottom {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

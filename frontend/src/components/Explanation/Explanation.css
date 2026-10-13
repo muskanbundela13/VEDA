@@ -1,0 +1,29 @@
+.explanation {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 90px 6%;
+}
+
+.content-label {
+  color: var(--color-cyan);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.explanation h2 {
+  margin: 14px 0 28px;
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+}
+
+.explanation-content {
+  color: #4f5560;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.explanation-content p {
+  margin: 0 0 20px;
+}

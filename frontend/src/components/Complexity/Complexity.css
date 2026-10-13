@@ -1,0 +1,97 @@
+.complexity {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 90px 6%;
+}
+
+.complexity h2 {
+  max-width: 750px;
+  margin: 14px 0 20px;
+
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+}
+
+.complexity-intro {
+  max-width: 650px;
+  margin: 0;
+
+  color: #4f5560;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.complexity-grid {
+  margin-top: 45px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.complexity-card {
+  padding: 32px;
+
+  background: var(--color-black);
+  color: var(--color-white);
+  border-radius: var(--radius-lg);
+}
+
+.complexity-card > span {
+  color: var(--color-cyan);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.complexity-card strong {
+  display: block;
+  margin: 25px 0 15px;
+
+  font-size: 42px;
+  letter-spacing: -2px;
+}
+
+.complexity-card p {
+  margin: 0;
+
+  color: #b8bcc5;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.complexity-example {
+  margin-top: 16px;
+  padding: 30px;
+
+  background: var(--color-light);
+  border: 1px solid #e3e6eb;
+  border-radius: var(--radius-md);
+}
+
+.complexity-example > span {
+  color: var(--color-cyan);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.complexity-example p {
+  max-width: 700px;
+  margin: 16px 0 0;
+
+  color: #4f5560;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.complexity-example strong {
+  color: var(--color-black);
+}
+
+@media (max-width: 700px) {
+  .complexity-grid {
+    grid-template-columns: 1fr;
+  }
+}
