@@ -90,6 +90,56 @@ def create_subject(
     }
 
 
+@app.put("/api/subjects/{subject_id}")
+def update_subject(
+    subject_id: int,
+    name: str,
+    short_name: str,
+    description: str = "",
+    db: Session = Depends(get_db),
+):
+    subject = (
+        db.query(models.Subject)
+        .filter(models.Subject.id == subject_id)
+        .first()
+    )
+
+    if not subject:
+        raise HTTPException(
+            status_code=404,
+            detail="Subject not found",
+        )
+
+    existing = (
+        db.query(models.Subject)
+        .filter(
+            models.Subject.short_name == short_name,
+            models.Subject.id != subject_id,
+        )
+        .first()
+    )
+
+    if existing:
+        raise HTTPException(
+            status_code=409,
+            detail="A subject with this short name already exists",
+        )
+
+    subject.name = name
+    subject.short_name = short_name
+    subject.description = description
+
+    db.commit()
+    db.refresh(subject)
+
+    return {
+        "id": subject.id,
+        "name": subject.name,
+        "short_name": subject.short_name,
+        "description": subject.description,
+    }
+
+
 @app.get("/api/subjects/{subject_id}/topics")
 def get_topics(subject_id: int, db: Session = Depends(get_db)):
     subject = db.query(models.Subject).filter(
@@ -222,7 +272,38 @@ def create_topic_section(
         "topic_id": section.topic_id,
     }
 
+@app.put("/api/topics/{topic_id}")
+def update_topic(
+    topic_id: int,
+    title: str,
+    slug: str,
+    description: str = "",
+    published: bool = False,
+    db: Session = Depends(get_db),
+):
+    topic = db.query(models.Topic).filter(
+        models.Topic.id == topic_id
+    ).first()
 
+    if not topic:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    topic.title = title
+    topic.slug = slug
+    topic.description = description
+    topic.published = published
+
+    db.commit()
+    db.refresh(topic)
+
+    return {
+        "id": topic.id,
+        "title": topic.title,
+        "slug": topic.slug,
+        "description": topic.description,
+        "published": topic.published,
+        "subject_id": topic.subject_id,
+    }
 
 @app.delete("/api/topics/{topic_id}/sections/{section_id}")
 def delete_topic_section(

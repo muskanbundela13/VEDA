@@ -1,35 +1,114 @@
+
+import { useEffect, useState } from "react"
 import { useParams, Link } from "react-router-dom"
-import topics from "../../data/topics"
 import "./Topic.css"
+
 import Explanation from "../../components/Explanation/Explanation"
 import RealWorldExample from "../../components/RealWorldExample/RealWorldExample"
 import HowItWorks from "../../components/HowItWorks/HowItWorks"
 import CodeExample from "../../components/CodeExample/CodeExample"
 import Complexity from "../../components/Complexity/Complexity"
-import topicContent from "../../data/topicContent"
-import subjects from "../../data/subjects"
+
+const API_URL = "http://127.0.0.1:8000"
 
 function Topic() {
   const { subjectId, topicId } = useParams()
-  const subject = subjects.find(
-  (item) => item.shortName.toLowerCase() === subjectId
-)
-  const subjectTopics = topics[subjectId] || []
-  const topic = subjectTopics.find((item) => item.slug === topicId)
-  const content = topicContent[topicId]
 
-  if (!topic || !subject || !content) {
+  const [subject, setSubject] = useState(null)
+  const [topic, setTopic] = useState(null)
+  const [sections, setSections] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+
+  useEffect(() => {
+    let cancelled = false
+
+    async function loadTopic() {
+      setLoading(true)
+      setError("")
+      setSubject(null)
+      setTopic(null)
+      setSections([])
+
+      try {
+        const subjectsResponse = await fetch(`${API_URL}/api/subjects`)
+
+        if (!subjectsResponse.ok) {
+          throw new Error("Could not load subjects.")
+        }
+
+        const subjects = await subjectsResponse.json()
+        const currentSubject = subjects.find(
+          (item) => item.short_name?.toLowerCase() === subjectId.toLowerCase()
+        )
+
+        if (!currentSubject) {
+          throw new Error("Subject not found.")
+        }
+
+        const topicsResponse = await fetch(
+          `${API_URL}/api/subjects/${currentSubject.id}/topics`
+        )
+
+        if (!topicsResponse.ok) {
+          throw new Error("Could not load topics.")
+        }
+
+        const topics = await topicsResponse.json()
+        const currentTopic = topics.find((item) => item.slug === topicId)
+
+        if (!currentTopic) {
+          throw new Error("Topic not found.")
+        }
+
+        const sectionsResponse = await fetch(
+          `${API_URL}/api/topics/${currentTopic.id}/sections`
+        )
+
+        if (!sectionsResponse.ok) {
+          throw new Error("Could not load lesson content.")
+        }
+
+        const lessonSections = await sectionsResponse.json()
+
+        if (!cancelled) {
+          setSubject(currentSubject)
+          setTopic(currentTopic)
+          setSections(lessonSections)
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(err.message || "Something went wrong while loading this lesson.")
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false)
+        }
+      }
+    }
+
+    loadTopic()
+
+    return () => {
+      cancelled = true
+    }
+  }, [subjectId, topicId])
+
+  if (loading) {
     return (
       <div className="topic-not-found">
         <span>VEDA</span>
+        <h1>Loading lesson...</h1>
+      </div>
+    )
+  }
 
+  if (error || !topic || !subject) {
+    return (
+      <div className="topic-not-found">
+        <span>VEDA</span>
         <h1>Topic not available yet.</h1>
-
-        <p>
-          We're still preparing the visual explanation
-          for this topic.
-        </p>
-
+        <p>{error || "We're still preparing this lesson."}</p>
         <Link to={`/subjects/${subjectId}`}>
           ← Back to topics
         </Link>
@@ -37,12 +116,19 @@ function Topic() {
     )
   }
 
+  const content = Object.fromEntries(
+    sections.map((section) => [
+      section.section_type,
+      {
+        ...section.content,
+        title: section.title,
+      },
+    ])
+  )
+
   return (
     <div className="topic-page">
-
-      {/* Topic Header */}
       <section className="topic-header">
-
         <Link
           to={`/subjects/${subjectId}`}
           className="back-link"
@@ -51,27 +137,32 @@ function Topic() {
         </Link>
 
         <span className="topic-label">
-          {subject?.name}
+          {subject.name}
         </span>
 
         <h1>{topic.title}</h1>
-
         <p>{topic.description}</p>
-
       </section>
 
-      {/* 01 — Understand */}
-      <Explanation data={content.understand} />
+      {content.understand && (
+        <Explanation data={content.understand} />
+      )}
 
-      {/* 02 — Real World Example */}
-      <RealWorldExample data={content.realWorld} />
+      {content.realWorld && (
+        <RealWorldExample data={content.realWorld} />
+      )}
 
-      <HowItWorks data={content.howItWorks} />
+      {content.howItWorks && (
+        <HowItWorks data={content.howItWorks} />
+      )}
 
-      <CodeExample data={content.code} />
+      {content.code && (
+        <CodeExample data={content.code} />
+      )}
 
-      <Complexity data={content.complexity} />
-
+      {content.complexity && (
+        <Complexity data={content.complexity} />
+      )}
     </div>
   )
 }
