@@ -117,6 +117,16 @@ function Admin() {
     );
   }
 
+  function handleEditTopic(topic) {
+    setEditingTopicId(topic.id);
+    setTopicTitle(topic.title || "");
+    setTopicSlug(topic.slug || "");
+    setTopicDescription(topic.description || "");
+    setTopicPublished(Boolean(topic.published));
+    setMessage("");
+  }
+
+
   async function loadSections(topicId) {
     if (!topicId) {
       setSections([]);
@@ -218,8 +228,6 @@ function Admin() {
     }
   }
 
-
-
   async function handleTopicSubmit(event) {
     event.preventDefault();
 
@@ -232,19 +240,37 @@ function Admin() {
     setMessage("");
 
     try {
-      await request(
-        `/api/subjects/${selectedSubject}/topics?${new URLSearchParams({
-          title: topicTitle,
-          slug: topicSlug,
-          description: topicDescription,
-        })}`,
-        { method: "POST" }
-      );
+      if (editingTopicId) {
+        await request(
+          `/api/topics/${editingTopicId}?${new URLSearchParams({
+            title: topicTitle,
+            slug: topicSlug,
+            description: topicDescription,
+            published: String(topicPublished),
+          })}`,
+          { method: "PUT" }
+        );
 
-      setMessage("Topic saved successfully!");
+        setMessage("Topic updated successfully!");
+      } else {
+        await request(
+          `/api/subjects/${selectedSubject}/topics?${new URLSearchParams({
+            title: topicTitle,
+            slug: topicSlug,
+            description: topicDescription,
+          })}`,
+          { method: "POST" }
+        );
+
+        setMessage("Topic created successfully!");
+      }
+
       setTopicTitle("");
       setTopicSlug("");
       setTopicDescription("");
+      setEditingTopicId(null);
+      setTopicPublished(false);
+
       await loadTopics(selectedSubject);
     } catch (error) {
       setMessage(error.message);
@@ -427,8 +453,10 @@ function Admin() {
         ))}
       </section>
 
+
       <section style={cardStyle}>
-        <h2>Add a topic</h2>
+        <h2>{editingTopicId ? "Edit topic" : "Add a topic"}</h2>
+
         <form onSubmit={handleTopicSubmit}>
           <label>
             Subject
@@ -445,6 +473,7 @@ function Admin() {
               ))}
             </select>
           </label>
+
           <label>
             Topic title
             <input
@@ -455,6 +484,7 @@ function Admin() {
               style={inputStyle}
             />
           </label>
+
           <label>
             URL slug
             <input
@@ -466,6 +496,7 @@ function Admin() {
               style={inputStyle}
             />
           </label>
+
           <label>
             Description
             <textarea
@@ -475,23 +506,76 @@ function Admin() {
               style={inputStyle}
             />
           </label>
+
+          <label style={{ display: "block", margin: "12px 0" }}>
+            <input
+              type="checkbox"
+              checked={topicPublished}
+              onChange={(event) => setTopicPublished(event.target.checked)}
+            />
+            {" "}Published
+          </label>
+
           <button
             type="submit"
             disabled={loading || !selectedSubject}
             style={buttonStyle}
           >
-            Save topic
+            {loading
+              ? "Saving..."
+              : editingTopicId
+                ? "Update topic"
+                : "Save topic"}
           </button>
-        </form>
 
-        <h3>Topics ({topics.length})</h3>
-        {topics.map((topic) => (
-          <article key={topic.id} style={{ padding: "12px 0" }}>
-            <strong>{topic.title}</strong>
-            <p>{topic.description}</p>
-            <small>{topic.slug} · {topic.published ? "Published" : "Draft"}</small>
-          </article>
-        ))}
+          {editingTopicId && (
+            <button
+              type="button"
+              onClick={() => {
+                setEditingTopicId(null);
+                setTopicTitle("");
+                setTopicSlug("");
+                setTopicDescription("");
+                setTopicPublished(false);
+                setMessage("");
+              }}
+              style={{ ...buttonStyle, marginLeft: "8px" }}
+            >
+              Cancel edit
+            </button>
+          )}
+        </form>
+      </section>
+
+      <section style={cardStyle}>
+        <h2>Saved topics ({topics.length})</h2>
+
+        {topics.length === 0 ? (
+          <p>No topics found for this subject.</p>
+        ) : (
+          topics.map((topic) => (
+            <article
+              key={topic.id}
+              style={{ padding: "12px 0", borderBottom: "1px solid #333" }}
+            >
+              <strong>{topic.title}</strong>
+              <p>{topic.description}</p>
+              <small>
+                {topic.slug} · {topic.published ? "Published" : "Draft"}
+              </small>
+
+              <div style={{ marginTop: "8px" }}>
+                <button
+                  type="button"
+                  style={buttonStyle}
+                  onClick={() => handleEditTopic(topic)}
+                >
+                  Edit topic
+                </button>
+              </div>
+            </article>
+          ))
+        )}
       </section>
 
       <section style={cardStyle}>
