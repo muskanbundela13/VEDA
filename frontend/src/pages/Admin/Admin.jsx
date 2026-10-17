@@ -66,6 +66,10 @@ function Admin() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [editingSubjectId, setEditingSubjectId] = useState(null);
+  const [editingTopicId, setEditingTopicId] = useState(null);
+  const [topicPublished, setTopicPublished] = useState(false);
+
   async function request(url, options = {}) {
     const response = await fetch(`${API_URL}${url}`, options);
     const result = await response.json();
@@ -142,6 +146,14 @@ function Admin() {
   }, [selectedTopic]);
 
 
+  function handleEditSubject(subject) {
+    setEditingSubjectId(subject.id);
+    setName(subject.name);
+    setShortName(subject.short_name);
+    setDescription(subject.description || "");
+    setMessage(`Editing subject: ${subject.name}`);
+  }
+
 
   function handleEditSection(section) {
    setEditingSectionId(section.id);
@@ -166,32 +178,46 @@ function Admin() {
   }
 
 
-    async function handleSubjectSubmit(event) {
+
+  async function handleSubjectSubmit(event) {
     event.preventDefault();
     setLoading(true);
     setMessage("");
 
     try {
-        await request(
-        `/api/subjects?${new URLSearchParams({
-            name,
-            short_name: shortName,
-            description,
-        })}`,
-        { method: "POST" }
-        );
+      const params = new URLSearchParams({
+        name,
+        short_name: shortName,
+        description,
+      });
 
-        setMessage("Subject saved successfully!");
-        setName("");
-        setShortName("");
-        setDescription("");
-        await loadSubjects();
+      const url = editingSubjectId
+        ? `/api/subjects/${editingSubjectId}?${params}`
+        : `/api/subjects?${params}`;
+
+      await request(url, {
+        method: editingSubjectId ? "PUT" : "POST",
+      });
+
+      setMessage(
+        editingSubjectId
+          ? "Subject updated successfully!"
+          : "Subject saved successfully!"
+      );
+
+      setEditingSubjectId(null);
+      setName("");
+      setShortName("");
+      setDescription("");
+
+      await loadSubjects();
     } catch (error) {
-        setMessage(error.message);
+      setMessage(error.message);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-    }
+  }
+
 
 
   async function handleTopicSubmit(event) {
@@ -352,9 +378,35 @@ function Admin() {
               style={inputStyle}
             />
           </label>
-          <button type="submit" disabled={loading} style={buttonStyle}>
-            Save subject
+
+          <button type="submit" disabled={loading}>
+            {loading
+              ? "Saving..."
+              : editingSubjectId
+                ? "Update subject"
+                : "Save subject"}
           </button>
+
+          {editingSubjectId && (
+            <button
+              type="button"
+              onClick={() => {
+                setEditingSubjectId(null);
+                setName("");
+                setShortName("");
+                setDescription("");
+                setMessage("Subject editing cancelled.");
+              }}
+              disabled={loading}
+              style={{
+                ...buttonStyle,
+                marginLeft: "8px",
+                background: "#E5E7EB",
+              }}
+            >
+              Cancel
+            </button>
+          )}
         </form>
       </section>
 
@@ -364,6 +416,13 @@ function Admin() {
           <article key={subject.id} style={{ padding: "12px 0" }}>
             <strong>{subject.name}</strong> · {subject.short_name}
             <p>{subject.description}</p>
+              <button
+                type="button"
+                onClick={() => handleEditSubject(subject)}
+                style={buttonStyle}
+              >
+                Edit subject
+              </button>
           </article>
         ))}
       </section>
@@ -537,7 +596,7 @@ function Admin() {
                 : "Save lesson section"}
 
           </button>
-
+        
             {editingSectionId && (
             <button
                 type="button"
