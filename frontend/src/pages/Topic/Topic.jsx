@@ -57,8 +57,8 @@ function Topic() {
         const topics = await topicsResponse.json()
         const currentTopic = topics.find((item) => item.slug === topicId)
 
-        if (!currentTopic) {
-          throw new Error("Topic not found.")
+        if (!currentTopic || currentTopic.published !== true) {
+          throw new Error("This topic is not published yet.")
         }
 
         const sectionsResponse = await fetch(

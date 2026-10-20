@@ -55,7 +55,7 @@ function Subject() {
             ...currentSubject,
             shortName: currentSubject.short_name,
           })
-          setSubjectTopics(topics)
+          setSubjectTopics(topics.filter((topic) => topic.published === true))
         }
       } catch (err) {
         if (!cancelled) {

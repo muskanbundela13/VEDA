@@ -207,6 +207,11 @@ def get_topic_sections(topic_id: int, db: Session = Depends(get_db)):
 
     if not topic:
         raise HTTPException(status_code=404, detail="Topic not found")
+    if not topic.published:
+        raise HTTPException(
+            status_code=404,
+            detail="Topic not found"
+        )
 
     return [
         {
