@@ -242,13 +242,35 @@ def create_topic_section(
     if not topic:
         raise HTTPException(status_code=404, detail="Topic not found")
 
+
     allowed_types = {
         "understand",
+        "introduction",
+        "classification",
+        "characteristics",
+        "components",
+        "workingPrinciple",
+        "comparison",
+        "operations",
+        "algorithms",
+        "applications",
         "realWorld",
+        "advantages",
         "howItWorks",
         "code",
         "complexity",
+        "spaceComplexity",
+        "visualization",
+        "caseStudy",
+        "solvedExamples",
+        "practiceQuestions",
+        "mcq",
+        "interviewQuestions",
+        "assignment",
+        "summary",
+        "custom",
     }
+
 
     if section_type not in allowed_types:
         raise HTTPException(

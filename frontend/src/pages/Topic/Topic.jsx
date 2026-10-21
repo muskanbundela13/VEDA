@@ -8,6 +8,9 @@ import RealWorldExample from "../../components/RealWorldExample/RealWorldExample
 import HowItWorks from "../../components/HowItWorks/HowItWorks"
 import CodeExample from "../../components/CodeExample/CodeExample"
 import Complexity from "../../components/Complexity/Complexity"
+import AcademicSection from "../../components/AcademicSection/AcademicSection"
+import ClassificationTree from "../../components/ClassificationTree/ClassificationTree"
+
 
 const API_URL = "http://127.0.0.1:8000"
 
@@ -144,27 +147,53 @@ function Topic() {
         <p>{topic.description}</p>
       </section>
 
-      {content.understand && (
-        <Explanation data={content.understand} />
-      )}
 
-      {content.realWorld && (
-        <RealWorldExample data={content.realWorld} />
-      )}
+      {sections
+        .slice()
+        .sort((a, b) => a.position - b.position)
+        .map((section, index) => {
+          const data = {
+            ...section.content,
+            title: section.title,
+          }
 
-      {content.howItWorks && (
-        <HowItWorks data={content.howItWorks} />
-      )}
+          return (
+            <div
+              key={section.id}
+              id={`lesson-section-${section.id}`}
+              className="lesson-section-anchor"
+            >
+              {(() => {
+                switch (section.section_type) {
+                  case "understand":
+                    return <Explanation data={data} />
+                  case "realWorld":
+                    return <RealWorldExample data={data} />
+                  case "howItWorks":
+                    return <HowItWorks data={data} />
+                  case "code":
+                    return <CodeExample data={data} />
+                  case "complexity":
+                    return <Complexity data={data} />
+                  case "classification":
+                    return <ClassificationTree data={data} />
+                  default:
+                    return (
 
-      {content.code && (
-        <CodeExample data={content.code} />
-      )}
+                    <AcademicSection
+                      data={data}
+                      type={section.section_type}
+                    />
+                  )
+                }
+              })()}
+            </div>
+          )
+        })}
 
-      {content.complexity && (
-        <Complexity data={content.complexity} />
-      )}
     </div>
   )
 }
 
 export default Topic
+

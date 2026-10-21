@@ -31,13 +31,43 @@ const cardStyle = {
   borderRadius: "12px",
 };
 
+
 const sectionTypes = [
+  // Concepts and theory
   { value: "understand", label: "Explanation" },
-  { value: "realWorld", label: "Real-world example" },
-  { value: "howItWorks", label: "How it works" },
-  { value: "code", label: "Code example" },
-  { value: "complexity", label: "Complexity analysis" },
+  { value: "introduction", label: "Introduction / Definition" },
+  { value: "classification", label: "Classification / Types" },
+  { value: "characteristics", label: "Characteristics / Properties" },
+  { value: "components", label: "Components / Structure" },
+  { value: "workingPrinciple", label: "Working Principle" },
+  { value: "comparison", label: "Comparison / Differences" },
+
+  // Practical learning
+  { value: "operations", label: "Operations" },
+  { value: "algorithms", label: "Algorithms / Steps" },
+  { value: "applications", label: "Applications" },
+  { value: "realWorld", label: "Real-world Examples" },
+  { value: "advantages", label: "Advantages & Disadvantages" },
+  { value: "code", label: "Code Implementation" },
+
+  // Analysis
+  { value: "complexity", label: "Time Complexity" },
+  { value: "spaceComplexity", label: "Space Complexity" },
+  { value: "visualization", label: "Diagram / Visualization" },
+  { value: "caseStudy", label: "Case Study" },
+
+  // Assessment
+  { value: "solvedExamples", label: "Solved Examples" },
+  { value: "practiceQuestions", label: "Questions to Practice" },
+  { value: "mcq", label: "Multiple-choice Questions (MCQs)" },
+  { value: "interviewQuestions", label: "Interview Questions" },
+  { value: "assignment", label: "Assignment / Challenge" },
+  { value: "summary", label: "Key Takeaways / Summary" },
+
+  // Custom content
+  { value: "custom", label: "Custom Section" },
 ];
+
 
 function Admin() {
   const [subjects, setSubjects] = useState([]);

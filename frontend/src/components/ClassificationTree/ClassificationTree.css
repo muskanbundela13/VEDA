@@ -1,0 +1,181 @@
+
+.classification-section {
+  width: calc(100% - 48px);
+  max-width: 1008px;
+  box-sizing: border-box;
+  margin: 32px auto;
+  padding: 28px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #f8fafc;
+  color: #121316;
+  box-shadow: 0 4px 16px rgb(18 19 22 / 5%);
+}
+
+.classification-section h2 {
+  margin: 0 0 24px;
+  color: #121316;
+  font-size: 24px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.classification-chart {
+  width: 100%;
+  overflow: auto;
+  padding: 12px 12px 28px;
+  box-sizing: border-box;
+}
+
+.classification-tree,
+.classification-children {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.classification-tree {
+  width: max-content;
+  min-width: 100%;
+}
+
+.classification-tree > .classification-node {
+  padding: 0;
+}
+
+.classification-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  padding: 28px 9px 0;
+  text-align: center;
+}
+
+.classification-node > .classification-children {
+  position: relative;
+  margin-top: 28px;
+}
+
+.classification-node:has(> .classification-children)::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  height: 28px;
+  border-left: 2px solid #8DE0F8;
+}
+
+.classification-children > .classification-node::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-top: 2px solid #8DE0F8;
+}
+
+.classification-children > .classification-node:first-child::before {
+  left: 50%;
+}
+
+.classification-children > .classification-node:last-child::before {
+  right: 50%;
+}
+
+.classification-children > .classification-node:only-child::before {
+  display: none;
+}
+
+.classification-children > .classification-node::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 28px;
+  border-left: 2px solid #8DE0F8;
+}
+
+.classification-box {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 104px;
+  max-width: 180px;
+  min-height: 42px;
+  padding: 10px 16px;
+  box-sizing: border-box;
+  border: 1px solid #d8e5f0;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #263449;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  box-shadow: 0 2px 6px rgb(18 19 22 / 5%);
+}
+
+.classification-tree > .classification-node > .classification-box {
+  background: #121316;
+  color: #ffffff;
+  border-color: #121316;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgb(18 19 22 / 12%);
+}
+
+.classification-tree
+  > .classification-node
+  > .classification-children
+  > .classification-node
+  > .classification-box {
+  background: #00D2FF;
+  color: #121316;
+  border-color: #00D2FF;
+}
+
+.classification-children
+  .classification-children
+  .classification-box {
+  background: #e8f9fd;
+  border-color: #bceef8;
+  color: #263449;
+}
+
+@media (max-width: 768px) {
+  .classification-section {
+    width: calc(100% - 24px);
+    margin: 20px auto;
+    padding: 18px 12px;
+    border-radius: 14px;
+  }
+
+  .classification-section h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .classification-chart {
+    padding: 8px 4px 20px;
+  }
+
+  .classification-node {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .classification-box {
+    min-width: 88px;
+    max-width: 148px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+}
