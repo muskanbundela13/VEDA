@@ -148,6 +148,32 @@ function Topic() {
       </section>
 
 
+      {sections.length > 0 && (
+        <nav className="lesson-navigation" aria-label="In this lesson">
+          <h2>In this lesson</h2>
+          <p>Choose a section to explore.</p>
+
+          <div className="lesson-navigation-grid">
+            {sections
+              .slice()
+              .sort((a, b) => a.position - b.position)
+              .map((section, index) => (
+                <a
+                  key={section.id}
+                  href={`#lesson-section-${section.id}`}
+                  className="lesson-navigation-card"
+                >
+                  <span className="lesson-navigation-number">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span>{section.title}</span>
+                </a>
+              ))}
+          </div>
+        </nav>
+      )}
+
+
       {sections
         .slice()
         .sort((a, b) => a.position - b.position)
@@ -196,4 +222,3 @@ function Topic() {
 }
 
 export default Topic
-

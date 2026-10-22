@@ -1,3 +1,4 @@
+import "./AcademicSection.css"
 
 function AcademicSection({ data, type }) {
   if (!data) return null

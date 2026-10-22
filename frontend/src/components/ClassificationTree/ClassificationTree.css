@@ -41,6 +41,8 @@
 .classification-tree {
   width: max-content;
   min-width: 100%;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .classification-tree > .classification-node {
@@ -57,20 +59,25 @@
   text-align: center;
 }
 
+/* Space between each parent box and its child branch */
 .classification-node > .classification-children {
   position: relative;
   margin-top: 28px;
 }
 
-.classification-node:has(> .classification-children)::after {
+/* Vertical line from the parent box toward its children */
+.classification-node:has(> .classification-children) > .classification-children::before {
   content: "";
   position: absolute;
-  top: 100%;
+  top: -28px;
   left: 50%;
   height: 28px;
   border-left: 2px solid #8DE0F8;
+  transform: translateX(-1px);
+  pointer-events: none;
 }
 
+/* Horizontal connector joining sibling branches */
 .classification-children > .classification-node::before {
   content: "";
   position: absolute;
@@ -80,18 +87,22 @@
   border-top: 2px solid #8DE0F8;
 }
 
+/* Start the horizontal line at the first child's center */
 .classification-children > .classification-node:first-child::before {
   left: 50%;
 }
 
+/* End the horizontal line at the last child's center */
 .classification-children > .classification-node:last-child::before {
   right: 50%;
 }
 
+/* No horizontal branch for a single child */
 .classification-children > .classification-node:only-child::before {
   display: none;
 }
 
+/* Vertical connector from the branch down to each child box */
 .classification-children > .classification-node::after {
   content: "";
   position: absolute;
@@ -99,8 +110,11 @@
   left: 50%;
   height: 28px;
   border-left: 2px solid #8DE0F8;
+  transform: translateX(-1px);
+  pointer-events: none;
 }
 
+/* Classification boxes */
 .classification-box {
   position: relative;
   z-index: 1;
@@ -124,6 +138,7 @@
   box-shadow: 0 2px 6px rgb(18 19 22 / 5%);
 }
 
+/* Root node */
 .classification-tree > .classification-node > .classification-box {
   background: #121316;
   color: #ffffff;
@@ -132,6 +147,7 @@
   box-shadow: 0 3px 10px rgb(18 19 22 / 12%);
 }
 
+/* First level */
 .classification-tree
   > .classification-node
   > .classification-children
@@ -142,6 +158,7 @@
   border-color: #00D2FF;
 }
 
+/* Deeper levels */
 .classification-children
   .classification-children
   .classification-box {
@@ -150,6 +167,7 @@
   color: #263449;
 }
 
+/* Responsive layout */
 @media (max-width: 768px) {
   .classification-section {
     width: calc(100% - 24px);
@@ -177,5 +195,11 @@
     max-width: 148px;
     padding: 8px 10px;
     font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .classification-section {
+    scroll-behavior: auto;
   }
 }
