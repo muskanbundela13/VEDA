@@ -54,7 +54,7 @@ function Home() {
     <>
       <Hero />
 
-      <section className="subjects-section">
+      <section className="subjects-section" id="subjects">
         <div className="section-heading">
           <span>EXPLORE</span>
           <h2>Subjects</h2>
