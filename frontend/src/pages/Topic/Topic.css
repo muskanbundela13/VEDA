@@ -1,22 +1,20 @@
-
 .topic-page {
   min-height: 100vh;
-  background: #f5f7fb;
-  color: #121316;
+  background: var(--page-bg);
+  color: var(--text-primary);
   overflow-x: hidden;
 }
 
-
 .topic-header {
   padding: 24px 6% 30px;
-  background: var(--color-black);
-  color: var(--color-white);
+  background: var(--header-bg);
+  color: var(--header-text);
 }
 
 .back-link {
   display: inline-block;
   margin-bottom: 28px;
-  color: #aeb3bc;
+  color: var(--text-secondary);
   font-size: 14px;
 }
 
@@ -36,13 +34,14 @@
   font-size: clamp(36px, 4.5vw, 56px);
   line-height: 1.1;
   letter-spacing: -1.8px;
+  color: var(--header-text);
 }
 
 .topic-header p {
   max-width: 650px;
   margin: 0;
 
-  color: #b8bcc5;
+  color: var(--text-secondary);
   font-size: 18px;
   line-height: 1.7;
 }
@@ -127,26 +126,29 @@
 
 
 
+
 /* Lesson navigation */
 .lesson-navigation {
+  width: calc(100% - 48px);
   max-width: 1100px;
   margin: 28px auto 40px;
   padding: 28px;
-  background: #f3f7fa;
-  border: 1px solid #e3eaf0;
+  background: var(--surface-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
   border-radius: 20px;
 }
 
 .lesson-navigation h2 {
   margin: 0 0 6px;
-  color: #121316;
+  color: var(--text-primary);
   font-size: 24px;
   font-weight: 700;
 }
 
 .lesson-navigation > p {
   margin: 0 0 22px;
-  color: #6b7280;
+  color: var(--text-secondary);
   font-size: 14px;
   line-height: 1.6;
 }
@@ -161,20 +163,19 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
   min-height: 68px;
   padding: 16px;
-  border: 1px solid #e0e7ed;
+  border: 1px solid var(--border-color);
   border-radius: 14px;
-  background: #ffffff;
-  color: #121316;
+  background: var(--surface-bg);
+  color: var(--text-primary);
   font-size: 14px;
   font-weight: 600;
   line-height: 1.5;
-  transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    box-shadow 180ms ease,
-    background 180ms ease;
+  text-decoration: none;
+  transition: transform 180ms ease, border-color 180ms ease,
+    box-shadow 180ms ease, background 180ms ease;
   scroll-margin-top: 24px;
 }
 
@@ -186,23 +187,24 @@
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: #e3f9fe;
-  color: #007f9b;
+  background: var(--surface-secondary);
+  color: var(--color-cyan);
   font-size: 12px;
   font-weight: 800;
 }
 
 .lesson-navigation-card:hover {
   transform: translateY(-3px);
-  border-color: #00bfe8;
-  background: #f8fdff;
-  box-shadow: 0 8px 20px rgb(18 19 22 / 8%);
+  border-color: var(--color-cyan);
+  box-shadow: 0 8px 20px var(--shadow-color);
 }
 
 .lesson-navigation-card:focus-visible {
-  outline: 3px solid #00a8cf;
+  outline: 3px solid var(--color-cyan);
   outline-offset: 3px;
 }
+
+
 
 
 /* Consistent layout for every lesson section */
@@ -215,16 +217,24 @@
   scroll-margin-top: 24px;
 }
 
-/* Standard width for lesson cards */
+/* Consistent lesson cards in light and dark themes */
 .lesson-section-anchor > .explanation,
+.lesson-section-anchor > .real-world-example,
+.lesson-section-anchor > .how-it-works,
 .lesson-section-anchor > .code-example,
 .lesson-section-anchor > .complexity,
-.lesson-section-anchor > .academic-section:not(.classification-section) {
-  width: 100%;
-  max-width: 1000px;
-  margin: 28px auto;
-  box-sizing: border-box;
+.lesson-section-anchor > .academic-section:not(.classification-section),
+.lesson-section-anchor > .classification-section {
+  background: linear-gradient(
+    135deg,
+    var(--surface-bg) 0%,
+    var(--surface-secondary) 100%
+  );
+  color: var(--text-primary);
+  border-color: var(--border-color);
+  box-shadow: 0 4px 16px var(--shadow-color);
 }
+
 
 /* Keep classification diagrams responsive and independently scrollable */
 .lesson-section-anchor > .classification-section {
@@ -305,25 +315,6 @@ html {
 }
 
 
-/* VEDA — consistent subtle cyan ombré across lesson cards */
-.lesson-section-anchor > .explanation,
-.lesson-section-anchor > .real-world-example,
-.lesson-section-anchor > .how-it-works,
-.lesson-section-anchor > .code-example,
-.lesson-section-anchor > .complexity,
-.lesson-section-anchor > .academic-section:not(.classification-section),
-.lesson-section-anchor > .classification-section {
-  background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    #f8fdff 55%,
-    #effbfe 100%
-  );
-  border-color: #dceff4;
-  box-shadow: 0 4px 16px rgb(0 150 190 / 5%);
-}
-
-/* Subtle cyan accent on hover */
 .lesson-section-anchor > .explanation:hover,
 .lesson-section-anchor > .real-world-example:hover,
 .lesson-section-anchor > .how-it-works:hover,
@@ -331,14 +322,10 @@ html {
 .lesson-section-anchor > .complexity:hover,
 .lesson-section-anchor > .academic-section:not(.classification-section):hover,
 .lesson-section-anchor > .classification-section:hover {
-  background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    #f3fcfe 55%,
-    #e8f9fd 100%
-  );
-  box-shadow: 0 8px 22px rgb(0 150 190 / 9%);
+  background: var(--surface-secondary);
+  box-shadow: 0 8px 22px var(--shadow-color);
 }
+
 
 /* Preserve the dark code editor and complexity detail cards */
 .lesson-section-anchor .code-block,

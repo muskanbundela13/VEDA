@@ -1,12 +1,13 @@
 .subject-page {
-  background: var(--color-light);
   min-height: 100vh;
+  background: var(--page-bg);
+  color: var(--text-primary);
 }
 
 .subject-header {
   padding: 100px 6%;
-  background: var(--color-black);
-  color: var(--color-white);
+  background: var(--header-bg);
+  color: var(--header-text);
 }
 
 .subject-header > * {
@@ -27,6 +28,7 @@
   max-width: 900px;
   margin-top: 18px;
   margin-bottom: 20px;
+  color: var(--header-text);
 
   font-size: clamp(42px, 6vw, 72px);
   line-height: 1.05;
@@ -36,7 +38,7 @@
 .subject-header p {
   max-width: 600px;
   margin-bottom: 0;
-  color: #b8bcc5;
+  color: var(--text-secondary);
   font-size: 17px;
   line-height: 1.7;
 }
