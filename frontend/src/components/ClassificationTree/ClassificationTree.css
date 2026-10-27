@@ -1,21 +1,37 @@
 
 .classification-section {
   width: calc(100% - 48px);
-  max-width: 1008px;
+  max-width: 1000px;
   box-sizing: border-box;
-  margin: 32px auto;
-  padding: 28px;
+  margin: 28px auto;
+  padding: 32px 36px;
   overflow: hidden;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
+  border-left: 5px solid var(--color-cyan);
   border-radius: 18px;
-  background: #f8fafc;
-  color: #121316;
-  box-shadow: 0 4px 16px rgb(18 19 22 / 5%);
+  background: linear-gradient(
+    135deg,
+    var(--surface-bg) 0%,
+    var(--surface-secondary) 100%
+  );
+  color: var(--text-primary);
+  box-shadow: 0 4px 14px var(--shadow-color);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.classification-section:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-cyan);
+  box-shadow: 0 10px 26px var(--shadow-color);
 }
 
 .classification-section h2 {
   margin: 0 0 24px;
-  color: #121316;
+  color: var(--text-primary);
   font-size: 24px;
   line-height: 1.4;
   font-weight: 700;
@@ -59,62 +75,54 @@
   text-align: center;
 }
 
-/* Space between each parent box and its child branch */
 .classification-node > .classification-children {
   position: relative;
   margin-top: 28px;
 }
 
-/* Vertical line from the parent box toward its children */
 .classification-node:has(> .classification-children) > .classification-children::before {
   content: "";
   position: absolute;
   top: -28px;
   left: 50%;
   height: 28px;
-  border-left: 2px solid #8DE0F8;
+  border-left: 2px solid var(--color-sky);
   transform: translateX(-1px);
   pointer-events: none;
 }
 
-/* Horizontal connector joining sibling branches */
 .classification-children > .classification-node::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  border-top: 2px solid #8DE0F8;
+  border-top: 2px solid var(--color-sky);
 }
 
-/* Start the horizontal line at the first child's center */
 .classification-children > .classification-node:first-child::before {
   left: 50%;
 }
 
-/* End the horizontal line at the last child's center */
 .classification-children > .classification-node:last-child::before {
   right: 50%;
 }
 
-/* No horizontal branch for a single child */
 .classification-children > .classification-node:only-child::before {
   display: none;
 }
 
-/* Vertical connector from the branch down to each child box */
 .classification-children > .classification-node::after {
   content: "";
   position: absolute;
   top: 0;
   left: 50%;
   height: 28px;
-  border-left: 2px solid #8DE0F8;
+  border-left: 2px solid var(--color-sky);
   transform: translateX(-1px);
   pointer-events: none;
 }
 
-/* Classification boxes */
 .classification-box {
   position: relative;
   z-index: 1;
@@ -126,54 +134,60 @@
   min-height: 42px;
   padding: 10px 16px;
   box-sizing: border-box;
-  border: 1px solid #d8e5f0;
+  border: 1px solid var(--border-color);
   border-radius: 12px;
-  background: #ffffff;
-  color: #263449;
+  background: var(--surface-bg);
+  color: var(--text-primary);
   font-family: inherit;
   font-size: 14px;
   font-weight: 600;
   line-height: 1.4;
   overflow-wrap: anywhere;
-  box-shadow: 0 2px 6px rgb(18 19 22 / 5%);
+  box-shadow: 0 2px 6px var(--shadow-color);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
 
-/* Root node */
+.classification-box:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-cyan);
+  box-shadow: 0 5px 12px var(--shadow-color);
+}
+
 .classification-tree > .classification-node > .classification-box {
-  background: #121316;
-  color: #ffffff;
-  border-color: #121316;
+  background: var(--header-bg);
+  color: var(--header-text);
+  border-color: var(--header-bg);
   border-radius: 12px;
-  box-shadow: 0 3px 10px rgb(18 19 22 / 12%);
+  box-shadow: 0 3px 10px var(--shadow-color);
 }
 
-/* First level */
 .classification-tree
   > .classification-node
   > .classification-children
   > .classification-node
   > .classification-box {
-  background: #00D2FF;
+  background: var(--color-cyan);
   color: #121316;
-  border-color: #00D2FF;
+  border-color: var(--color-cyan);
 }
 
-/* Deeper levels */
 .classification-children
   .classification-children
   .classification-box {
-  background: #e8f9fd;
-  border-color: #bceef8;
-  color: #263449;
+  background: var(--surface-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
 }
 
-/* Responsive layout */
 @media (max-width: 768px) {
   .classification-section {
     width: calc(100% - 24px);
     margin: 20px auto;
-    padding: 18px 12px;
-    border-radius: 14px;
+    padding: 24px 16px;
+    border-radius: 15px;
   }
 
   .classification-section h2 {
@@ -198,8 +212,20 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (max-width: 420px) {
   .classification-section {
-    scroll-behavior: auto;
+    padding: 20px 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .classification-section,
+  .classification-box {
+    transition: none;
+  }
+
+  .classification-section:hover,
+  .classification-box:hover {
+    transform: none;
   }
 }

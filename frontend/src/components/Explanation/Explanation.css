@@ -1,22 +1,31 @@
+
 .explanation {
+  width: 100%;
   max-width: 1000px;
   margin: 28px auto;
   padding: 32px 36px;
-  background: #f0fbfe;
-  border: 1px solid #d7f2f9;
-  border-left: 5px solid #00d2ff;
+  box-sizing: border-box;
+  background: linear-gradient(
+    135deg,
+    var(--surface-bg) 0%,
+    var(--surface-secondary) 100%
+  );
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-left: 5px solid var(--color-cyan);
   border-radius: 18px;
-  box-shadow: 0 4px 14px rgb(18 19 22 / 4%);
+  box-shadow: 0 4px 14px var(--shadow-color);
   transition:
     transform 180ms ease,
     box-shadow 180ms ease,
-    border-color 180ms ease;
+    border-color 180ms ease,
+    background 180ms ease;
 }
 
 .explanation:hover {
   transform: translateY(-3px);
-  border-color: #a8eaf7;
-  box-shadow: 0 10px 26px rgb(18 19 22 / 8%);
+  border-color: var(--color-cyan);
+  box-shadow: 0 10px 26px var(--shadow-color);
 }
 
 .content-label {
@@ -28,17 +37,44 @@
 
 .explanation h2 {
   margin: 14px 0 28px;
+  color: var(--text-primary);
   font-size: clamp(32px, 4vw, 48px);
   line-height: 1.1;
   letter-spacing: -1.5px;
 }
 
 .explanation-content {
-  color: #4f5560;
+  color: var(--text-secondary);
   font-size: 18px;
   line-height: 1.8;
 }
 
 .explanation-content p {
   margin: 0 0 20px;
+  color: inherit;
+}
+
+@media (max-width: 768px) {
+  .explanation {
+    padding: 24px 20px;
+    border-radius: 15px;
+  }
+
+  .explanation h2 {
+    font-size: 30px;
+  }
+
+  .explanation-content {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explanation {
+    transition: none;
+  }
+
+  .explanation:hover {
+    transform: none;
+  }
 }

@@ -5,7 +5,11 @@
   margin: 28px auto;
   padding: 32px 36px;
   box-sizing: border-box;
-  background: var(--surface-bg);
+  background: linear-gradient(
+  135deg,
+  var(--surface-bg) 0%,
+  var(--surface-secondary) 100%
+  );
   color: var(--text-primary);
   border: 1px solid var(--border-color);
   border-left: 5px solid var(--color-cyan);
@@ -17,6 +21,7 @@
 
 .complexity:hover {
   transform: translateY(-3px);
+  border-color: var(--color-cyan);
   box-shadow: 0 10px 26px var(--shadow-color);
 }
 
@@ -90,14 +95,15 @@
 
 /* Explanation panel: use theme-aware colors */
 .complexity-example {
-  margin-top: 18px;
+  margin-top: 22px;
   padding: 24px;
   box-sizing: border-box;
-  background: var(--surface-secondary);
+  background: var(--surface-bg);
   color: var(--text-primary);
   border: 1px solid var(--border-color);
-  border-left: 4px solid var(--color-sky);
+  border-left: 4px solid var(--color-cyan);
   border-radius: 12px;
+  box-shadow: 0 3px 10px var(--shadow-color);
 }
 
 .complexity-example > span {

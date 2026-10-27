@@ -5,22 +5,32 @@
   margin: 28px auto;
   padding: 32px 36px;
   box-sizing: border-box;
-  background: #ffffff;
-  border: 1px solid #e3eaf0;
-  border-left: 5px solid #00D2FF;
+  background: linear-gradient(
+    135deg,
+    var(--surface-bg) 0%,
+    var(--surface-secondary) 100%
+  );
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-left: 5px solid var(--color-cyan);
   border-radius: 18px;
-  box-shadow: 0 4px 14px rgb(18 19 22 / 4%);
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  box-shadow: 0 4px 14px var(--shadow-color);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
 }
 
 .real-world-example:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 26px rgb(18 19 22 / 8%);
+  border-color: var(--color-cyan);
+  box-shadow: 0 10px 26px var(--shadow-color);
 }
 
 .real-world-example h2 {
   margin: 14px 0 20px;
-  color: #121316;
+  color: var(--text-primary);
   font-size: clamp(28px, 3.5vw, 42px);
   line-height: 1.15;
   letter-spacing: -1.2px;
@@ -29,13 +39,13 @@
 .real-world-example > p {
   max-width: 760px;
   margin: 0 0 18px;
-  color: #4f5560;
+  color: var(--text-secondary);
   font-size: 16px;
   line-height: 1.8;
 }
 
 .real-world-example strong {
-  color: #121316;
+  color: var(--text-primary);
 }
 
 .example-steps {
@@ -50,29 +60,34 @@
   min-height: 140px;
   padding: 22px;
   box-sizing: border-box;
-  background: #f3faff;
-  border: 1px solid #dceef7;
-  border-bottom: 3px solid #8DE0F8;
+  background: var(--surface-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-bottom: 3px solid var(--color-sky);
   border-radius: 12px;
-  transition: background 180ms ease, border-color 180ms ease,
-    transform 180ms ease;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .example-step:hover {
-  background: #eaf9fd;
-  border-bottom-color: #00D2FF;
+  background: var(--surface-bg);
+  border-color: var(--color-cyan);
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--shadow-color);
 }
 
 .example-step span {
-  color: #007f9b;
+  color: var(--color-cyan);
   font-size: 12px;
   font-weight: 800;
 }
 
 .example-step p {
   margin: 20px 0 0;
-  color: #4f5560;
+  color: var(--text-secondary);
   font-size: 14px;
   line-height: 1.75;
 }

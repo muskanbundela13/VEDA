@@ -1,20 +1,31 @@
 
 .code-example {
+  width: 100%;
   max-width: 1000px;
   margin: 28px auto;
   padding: 32px 36px;
   box-sizing: border-box;
-  background: #ffffff;
-  border: 1px solid #e3eaf0;
-  border-left: 5px solid #00D2FF;
+  background: linear-gradient(
+    135deg,
+    var(--surface-bg) 0%,
+    var(--surface-secondary) 100%
+  );
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-left: 5px solid var(--color-cyan);
   border-radius: 18px;
-  box-shadow: 0 4px 14px rgb(18 19 22 / 4%);
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  box-shadow: 0 4px 14px var(--shadow-color);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
 }
 
 .code-example:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 26px rgb(18 19 22 / 8%);
+  border-color: var(--color-cyan);
+  box-shadow: 0 10px 26px var(--shadow-color);
 }
 
 .code-example h2 {
@@ -28,7 +39,7 @@
 .code-intro {
   max-width: 700px;
   margin: 0;
-  color: #4f5560;
+  color: var(--text-secondary);
   font-size: 16px;
   line-height: 1.8;
 }
@@ -83,23 +94,34 @@
   gap: 14px;
 }
 
+
 .code-point {
   min-width: 0;
-  padding: 20px;
+  padding: 22px;
   box-sizing: border-box;
-  background: #f3faff;
-  border: 1px solid #dceef7;
-  border-bottom: 3px solid #8DE0F8;
+  background: linear-gradient(
+    135deg,
+    var(--surface-bg) 0%,
+    var(--surface-secondary) 100%
+  );
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-bottom: 3px solid var(--color-cyan);
   border-radius: 12px;
-  transition: background 180ms ease, border-color 180ms ease,
-    transform 180ms ease;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .code-point:hover {
-  background: #eaf9fd;
-  border-bottom-color: #00D2FF;
+  background: var(--surface-secondary);
+  border-color: var(--color-cyan);
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--shadow-color);
 }
+
 
 .code-point span {
   display: inline-flex;
@@ -108,26 +130,27 @@
   width: 30px;
   height: 30px;
   border-radius: 9px;
-  background: #d9f7fe;
-  color: #007f9b;
+  background: var(--surface-bg);
+  color: var(--color-cyan);
+  border: 1px solid var(--border-color);
   font-size: 12px;
   font-weight: 800;
 }
 
 .code-point p {
   margin: 14px 0 0;
-  color: #4f5560;
+  color: var(--text-secondary);
   font-size: 14px;
   line-height: 1.75;
 }
 
 .code-point strong {
-  color: #121316;
+  color: var(--text-primary);
 }
 
 @media (max-width: 768px) {
   .code-example {
-    margin: 20px 16px;
+    margin: 20px auto;
     padding: 24px 20px;
     border-radius: 15px;
   }
@@ -153,7 +176,7 @@
 
 @media (max-width: 420px) {
   .code-example {
-    margin: 16px 12px;
+    margin: 16px auto;
     padding: 20px 14px;
   }
 
@@ -177,5 +200,114 @@
   .code-example:hover,
   .code-point:hover {
     transform: none;
+  }
+}
+
+
+/* Improve spacing and hierarchy in the code lesson */
+.code-example > h2 {
+  margin-bottom: 24px;
+}
+
+.code-block {
+  margin-bottom: 0;
+  border-radius: 14px;
+}
+
+.code-example h3 {
+  margin: 24px 0 10px;
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 750;
+}
+
+/* Output text */
+.code-example pre:not(.code-block pre) {
+  color: var(--text-secondary);
+}
+
+/* Explanation cards */
+.code-point {
+  padding: 22px;
+  border-bottom: 3px solid var(--color-cyan);
+}
+
+.code-point span {
+  margin-bottom: 4px;
+}
+
+.code-point p {
+  margin-top: 14px;
+  line-height: 1.8;
+}
+
+/* Give the editor and explanation area clear spacing */
+.code-explanation {
+  margin-top: 26px;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .code-example h3 {
+    margin-top: 20px;
+  }
+
+  .code-explanation {
+    margin-top: 20px;
+    gap: 12px;
+  }
+}
+
+
+/* Code output panel */
+.code-output {
+  margin-top: 18px;
+  padding: 18px 20px;
+  background: var(--surface-secondary);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--color-cyan);
+  border-radius: 12px;
+  color: var(--text-primary);
+}
+
+.code-output > strong {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.code-output pre {
+  margin: 0;
+  padding: 12px 14px;
+  overflow-x: auto;
+  background: var(--surface-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.code-output code {
+  color: var(--text-secondary);
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Keep output readable in both themes */
+.code-output strong,
+.code-output code {
+  text-align: left;
+}
+
+@media (max-width: 480px) {
+  .code-output {
+    padding: 14px;
+  }
+
+  .code-output pre {
+    padding: 10px;
   }
 }
