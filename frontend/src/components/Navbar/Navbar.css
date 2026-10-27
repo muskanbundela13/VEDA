@@ -42,13 +42,12 @@
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
-  opacity: 0.9;
-  transition: color 180ms ease, opacity 180ms ease;
+  opacity: 1;
+  transition: color 180ms ease;
 }
 
 .navbar-links a:hover {
   color: var(--color-cyan);
-  opacity: 1;
 }
 
 .theme-toggle {
@@ -143,4 +142,15 @@
   .theme-toggle {
     transition: none;
   }
+}
+
+/* Keep navbar links readable in every theme */
+.navbar .navbar-links a,
+.navbar .navbar-links a:visited {
+  color: var(--header-text);
+  opacity: 1;
+}
+
+.navbar .navbar-links a:hover {
+  color: var(--color-cyan);
 }

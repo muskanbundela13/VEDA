@@ -19,7 +19,7 @@
 
 .code-example h2 {
   margin: 14px 0 20px;
-  color: #121316;
+  color: var(--text-primary);
   font-size: clamp(28px, 3.5vw, 42px);
   line-height: 1.15;
   letter-spacing: -1.2px;

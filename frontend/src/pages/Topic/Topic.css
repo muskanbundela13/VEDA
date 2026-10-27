@@ -196,13 +196,19 @@
 .lesson-navigation-card:hover {
   transform: translateY(-3px);
   border-color: var(--color-cyan);
-  box-shadow: 0 8px 20px var(--shadow-color);
+  background: linear-gradient(
+    135deg,
+    var(--surface-bg) 0%,
+    var(--surface-secondary) 100%
+  );
+  box-shadow: 0 10px 26px var(--shadow-color);
 }
 
 .lesson-navigation-card:focus-visible {
   outline: 3px solid var(--color-cyan);
   outline-offset: 3px;
 }
+
 
 
 
@@ -315,6 +321,22 @@ html {
 }
 
 
+/* Consistent cyan accent and lift for all lesson cards */
+.lesson-section-anchor > .explanation,
+.lesson-section-anchor > .real-world-example,
+.lesson-section-anchor > .how-it-works,
+.lesson-section-anchor > .code-example,
+.lesson-section-anchor > .complexity,
+.lesson-section-anchor > .academic-section:not(.classification-section),
+.lesson-section-anchor > .classification-section {
+  border-left: 4px solid var(--color-cyan);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
 .lesson-section-anchor > .explanation:hover,
 .lesson-section-anchor > .real-world-example:hover,
 .lesson-section-anchor > .how-it-works:hover,
@@ -322,8 +344,10 @@ html {
 .lesson-section-anchor > .complexity:hover,
 .lesson-section-anchor > .academic-section:not(.classification-section):hover,
 .lesson-section-anchor > .classification-section:hover {
+  transform: translateY(-3px);
+  border-left-color: var(--color-cyan);
   background: var(--surface-secondary);
-  box-shadow: 0 8px 22px var(--shadow-color);
+  box-shadow: 0 10px 26px var(--shadow-color);
 }
 
 
@@ -332,4 +356,27 @@ html {
 .lesson-section-anchor .complexity-card,
 .lesson-section-anchor .search-visual {
   background-color: #121316;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .lesson-section-anchor > .explanation,
+  .lesson-section-anchor > .real-world-example,
+  .lesson-section-anchor > .how-it-works,
+  .lesson-section-anchor > .code-example,
+  .lesson-section-anchor > .complexity,
+  .lesson-section-anchor > .academic-section:not(.classification-section),
+  .lesson-section-anchor > .classification-section {
+    transition: none;
+  }
+
+  .lesson-section-anchor > .explanation:hover,
+  .lesson-section-anchor > .real-world-example:hover,
+  .lesson-section-anchor > .how-it-works:hover,
+  .lesson-section-anchor > .code-example:hover,
+  .lesson-section-anchor > .complexity:hover,
+  .lesson-section-anchor > .academic-section:not(.classification-section):hover,
+  .lesson-section-anchor > .classification-section:hover {
+    transform: none;
+  }
 }

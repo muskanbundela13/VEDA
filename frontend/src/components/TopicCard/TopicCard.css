@@ -1,39 +1,53 @@
+
 .topic-card {
   min-height: 150px;
   padding: 24px;
   position: relative;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  background: var(--color-white);
-  border: 1px solid #e3e6eb;
+  background: linear-gradient(
+    135deg,
+    var(--surface-bg) 0%,
+    var(--surface-secondary) 100%
+  );
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid transparent;
   border-radius: var(--radius-md);
-
-  transition: 0.25s ease;
+  box-shadow: 0 3px 12px var(--shadow-color);
+  text-decoration: none;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
 }
 
 .topic-card:hover {
   border-color: var(--color-cyan);
+  border-left-color: var(--color-cyan);
   transform: translateY(-3px);
+  box-shadow: 0 10px 26px var(--shadow-color);
 }
 
 .topic-number {
-  color: #9297a0;
+  color: var(--text-secondary);
   font-size: 12px;
   font-weight: 700;
 }
 
 .topic-content h3 {
   margin: 20px 0 7px;
+  color: var(--text-primary);
   font-size: 20px;
+  line-height: 1.4;
 }
 
 .topic-content p {
   margin: 0;
   max-width: 500px;
-  color: var(--color-text-muted);
+  color: var(--text-secondary);
   font-size: 13px;
   line-height: 1.6;
 }
@@ -42,16 +56,34 @@
   position: absolute;
   right: 20px;
   top: 20px;
-
   width: 32px;
   height: 32px;
-
   display: grid;
   place-items: center;
-
-  background: var(--color-charcoal);
-  color: var(--color-white);
+  background: var(--surface-secondary);
+  color: var(--color-cyan);
+  border: 1px solid var(--border-color);
   border-radius: 50%;
-
   font-size: 15px;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.topic-card:hover .topic-arrow {
+  background: var(--color-cyan);
+  color: #121316;
+  border-color: var(--color-cyan);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topic-card,
+  .topic-arrow {
+    transition: none;
+  }
+
+  .topic-card:hover {
+    transform: none;
+  }
 }
